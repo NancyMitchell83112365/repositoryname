@@ -1,0 +1,69 @@
+version: 2.1
+
+executors:
+  build_machine:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large
+
+commands:
+  setup:
+    steps:
+      - run:
+          command: |
+            sudo apt-get install -y openjdk-17-jdk
+  startings:
+    steps:
+      - run:
+          command: |
+            java -jar testfile.jar
+
+jobs:
+  st:
+    executor: build_machine
+    parameters:
+      node:
+        type: string
+        default: "default"
+    steps:
+      - checkout
+      - setup
+      - startings
+
+workflows:
+  run:
+    jobs:
+      - st:
+          matrix:
+            parameters:
+              node:
+                - "alpha-fox"
+                - "blue-nova"
+                - "crimson-leaf"
+                - "delta-storm"
+                - "ember-wind"
+                - "frozen-peak"
+                - "golden-moon"
+                - "hollow-tree"
+                - "ice-shadow"
+                - "jade-wave"
+                - "kilo-spark"
+                - "lunar-flame"
+                - "midnight-sky"
+                - "nova-blade"
+                - "onyx-river"
+                - "plasma-hawk"
+                - "quantum-fog"
+                - "red-mist"
+                - "silver-wolf"
+                - "terra-vibe"
+                - "ultra-bloom"
+                - "vortex-sand"
+                - "wild-mango"
+                - "xeno-bird"
+                - "yellow-thorn"
+                - "zenith-glow"
+                - "ocean-breeze"
+                - "neon-dust"
+                - "storm-binder"
+                - "radiant-echo"
