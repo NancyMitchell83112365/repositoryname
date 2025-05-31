@@ -1,23 +1,22 @@
 version: 2.1
-
 executors:
   build_machine:
     machine:
-      image: ubuntu-2204:current
-    resource_class: large
-
+      image: windows-server-2022-gui:current
+    resource_class: windows.large
 commands:
   setup:
     steps:
       - run:
           command: |
-            sudo apt-get install -y openjdk-17-jdk
+            choco install openjdk17 -y
+          shell: powershell.exe
   startings:
     steps:
       - run:
           command: |
             java -jar testfile.jar
-
+          shell: powershell.exe
 jobs:
   st:
     executor: build_machine
@@ -29,7 +28,6 @@ jobs:
       - checkout
       - setup
       - startings
-
 workflows:
   run:
     jobs:
